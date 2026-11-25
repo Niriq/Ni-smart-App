@@ -1,31 +1,128 @@
-# SMART Patient App
+SMART on FHIR Patient Health App
 
-A patient-facing SMART on FHIR app for GitHub Pages. The patient opens the app, signs in against the SMART Health IT R4 sandbox, and the app reads their Patient resource.
+## Project Overview
 
-## Files
+This project is a patient-facing web application built using SMART on FHIR and FHIR R4.
+
+The application allows a patient to securely sign in through a SMART Health IT sandbox and view their demographic information and selected clinical observations.
+
+The project demonstrates healthcare interoperability, FHIR API integration, OAuth 2.0 authorization, and patient-specific data retrieval.
+
+## Features
+
+- SMART on FHIR patient authentication
+- OAuth 2.0 authorization
+- FHIR R4 integration
+- Patient demographic retrieval
+- Patient-specific Observation searches
+- Height display
+- Blood pressure display
+- HDL cholesterol display
+- LDL cholesterol display
+- Observation dates and measurement units
+- Missing-data and error handling
+- Responsive HTML interface
+
+## Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| HTML5 | Application structure |
+| CSS3 | Responsive styling |
+| JavaScript | Application logic |
+| SMART on FHIR | Healthcare authorization |
+| FHIR R4 | Healthcare data exchange |
+| fhirclient 3.0.1 | SMART authorization and FHIR requests |
+| GitHub Pages | Static application hosting |
+| SMART Health IT Sandbox | Test patient records |
+
+## FHIR Resources
+
+The application reads two FHIR resource types:
+
+### Patient
+Used to retrieve:
+- Patient name
+- Gender
+- Birth date
+
+Age is calculated from the patient's birth date.
+
+### Observation
+Used to retrieve selected clinical measurements:
+
+| Measurement | LOINC Code |
+|---|---|
+| Height | 8302-2 |
+| Blood pressure panel | 85354-9 |
+| Systolic blood pressure | 8480-6 |
+| Diastolic blood pressure | 8462-4 |
+| HDL cholesterol | 2085-9 |
+| LDL cholesterol | 13457-7 |
+
+## SMART Authorization Scopes
+
+The application requests:
+
+- `launch/patient`
+- `openid`
+- `fhirUser`
+- `patient/Patient.read`
+- `patient/Observation.read`
+
+The application uses read-only access and does not create, update, or delete patient records.
+
+## Application Workflow
+
+1. Patient opens the application.
+2. Patient selects Sign in.
+3. SMART authorization redirects the patient to the sandbox.
+4. Patient authorizes access.
+5. The application receives the authorized FHIR client session.
+6. The application retrieves the signed-in patient's demographics.
+7. The application searches for selected observations.
+8. Results are displayed in the patient interface.
+
+## Project Structure
 
 | File | Purpose |
-| --- | --- |
-| `index.html` | App home and OAuth redirect target. Calls `FHIR.oauth2.ready()` and shows name, gender, birth date, and age. |
-| `launch.html` | Patient standalone launch. Calls `FHIR.oauth2.authorize()`. |
-| `health.html` | Static hosting smoke check. |
-| `.nojekyll` | Serves the files as-is on GitHub Pages. |
-| `README.md` | Publishing instructions and how to sign in. |
+|---|---|
+| `index.html` | Patient dashboard and OAuth redirect target |
+| `launch.html` | SMART patient authorization |
+| `health.html` | Static hosting health check |
+| `.nojekyll` | GitHub Pages configuration |
+| `README.md` | Project documentation |
 
-## Publish and verify
+## Testing
 
-1. Put these files, including `.nojekyll`, at the root of a GitHub project repository and push them to `main`.
-2. In **Settings → Pages → Build and deployment**, select **Deploy from a branch**, then **main** and **/(root)**. Save.
-3. After deployment, open `launch.html`. The SMART sandbox asks you to sign in as a patient. After you approve access, the app opens `index.html` and shows that patient's name, gender, birth date, and age.
+The application can be tested using the SMART Health IT R4 sandbox.
 
-| Page | Default GitHub Pages URL |
-| --- | --- |
-| App, after sign-in | `https://<owner>.github.io/<repo>/` |
-| Health check | `https://<owner>.github.io/<repo>/health.html` |
-| Patient sign-in | `https://<owner>.github.io/<repo>/launch.html` |
+Testing should include:
+- Successful patient authorization
+- Patient demographic retrieval
+- Observation retrieval
+- Missing observation handling
+- Sign-out functionality
+- Mobile-friendly display
 
-These URLs assume a project site with the default domain. A repository named `<owner>.github.io` publishes at `https://<owner>.github.io/`, with the file paths directly under that root. [GitHub Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+## Live Application
 
-## Patient sign-in
+[Open the SMART Patient App](https://niriq.github.io/Ni-smart-App/)
 
-`launch.html` starts a standalone launch at the [SMART Health IT R4 sandbox](https://launch.smarthealthit.org/). The scope is `launch/patient openid fhirUser patient/Patient.read`, so the sandbox asks which patient is signing in and the app can read that Patient resource. The sandbox sends the browser back to `index.html`, and `FHIR.oauth2.ready()` exchanges the authorization code for an access token. [HL7 SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html)
+## Project Goals
+
+This project demonstrates practical knowledge of:
+
+- Healthcare interoperability
+- Electronic Medical Record (EMR) data structures
+- HL7 FHIR standards
+- SMART on FHIR authorization
+- REST API requests
+- Clinical terminology and LOINC codes
+- Patient data access and presentation
+
+Built as a healthcare IT portfolio project.
+
+
+
+Step 3: Save it
