@@ -1,4 +1,5 @@
-<!doctype html>
+
+     <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -12,12 +13,9 @@
     <p>You are leaving this page for the SMART sandbox. Sign in there as the patient, then the sandbox sends you back here.</p>
     <p id="error"></p>
   </main>
+
   <script>
     // Patient standalone against the SMART Health IT R4 sandbox.
-    // The sandbox reads the "/sim/..." segment and shows a patient login
-    // because the launch type is patient-standalone (the 3 below).
-    // A different iss on the query string wins, so the SMART Launcher can
-    // still start this same page.
     var launchOptions = [
       3, "", "", "AUTO",
       0, 0, 0,
@@ -29,15 +27,11 @@
       + btoa(JSON.stringify(launchOptions)).replace(/=+$/g, "").replace(/\+/g, "-").replace(/\//g, "_")
       + "/fhir";
 
-    // authorize() redirects the browser. Code after it does not run
-    // unless the sandbox cannot be reached.
+    // Starts SMART sign-in and requests permission to read Patient
+    // and Observation data for the signed-in patient.
     FHIR.oauth2.authorize({
-      // Public client. The sandbox does not require a registered secret.
       clientId: "my_web_app",
-      // launch/patient asks the sandbox to pick the patient during sign-in.
-      scope: "launch/patient openid fhirUser patient/Patient.read",
-      // Must be this app's index.html. fhir-client turns the relative URL
-      // into the full GitHub Pages URL before sending it.
+      scope: "launch/patient openid fhirUser patient/Patient.read patient/Observation.read",
       redirectUri: "index.html",
       iss: sandboxIss
     }).catch(function (error) {
