@@ -1,4 +1,4 @@
-SMART on FHIR Patient Health App
+# SMART on FHIR Patient Health App
 
 ## Project Overview
 
@@ -41,6 +41,7 @@ The project demonstrates healthcare interoperability, FHIR API integration, OAut
 The application reads two FHIR resource types:
 
 ### Patient
+
 Used to retrieve:
 - Patient name
 - Gender
@@ -49,6 +50,7 @@ Used to retrieve:
 Age is calculated from the patient's birth date.
 
 ### Observation
+
 Used to retrieve selected clinical measurements:
 
 | Measurement | LOINC Code |
@@ -122,7 +124,3 @@ This project demonstrates practical knowledge of:
 - Patient data access and presentation
 
 Built as a healthcare IT portfolio project.
-
-
-
-Step 3: Save it
